@@ -86,9 +86,9 @@ async function signup() {
     alert("Please fill all fields");
     return;
   }
-
+// http://54.152.231.135:8000/
   try {
-    const response = await fetch("http://127.0.0.1:8000/auth/signUp", {
+    const response = await fetch("http://54.152.231.135:8000/auth/signUp", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({ name, userID, password })
@@ -117,7 +117,7 @@ async function login() {
   }
 
   try {
-    const response = await fetch("http://127.0.0.1:8000/auth/login", {
+    const response = await fetch("http://54.152.231.135:8000/auth/login", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({ userID: email, password })
@@ -148,7 +148,7 @@ async function login() {
 // Fetch sessions from backend
 async function loadSessionsFromAPI() {
   try {
-    const response = await fetch(`http://127.0.0.1:8000/get_sessions?userID=${encodeURIComponent(localStorage.getItem("userID"))}`, {
+    const response = await fetch(`http://54.152.231.135:8000/get_sessions?userID=${encodeURIComponent(localStorage.getItem("userID"))}`, {
       method: "GET",
       headers: {
         // "Authorization": "Bearer " + localStorage.getItem("authToken"),
@@ -232,7 +232,7 @@ async function loadSession(sessionId) {
   chatBox.innerHTML = ""; // clear old chat
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/get_session_chats?session_id=${sessionId}`, {
+    const response = await fetch(`http://54.152.231.135:8000/get_session_chats?session_id=${sessionId}`, {
       method: "GET",
       headers: {
         // "Authorization": "Bearer " + localStorage.getItem("authToken"),
@@ -290,7 +290,7 @@ async function sendMessage() {
   userInput.value = "";
 
   try {
-    // const response = await fetch("http://127.0.0.1:8000/ask", {
+    // const response = await fetch("http://54.152.231.135:8000/ask", {
     //   method: "POST",
     //   headers: {"Content-Type": "application/json"},
     //   body: JSON.stringify({
@@ -337,7 +337,7 @@ async function uploadDoc() {
   formData.append("file", file);
 
   try {
-    const response = await fetch("http://127.0.0.1:8000/upload_doc", {
+    const response = await fetch("http://54.152.231.135:8000/upload_doc", {
       method: "POST",
       headers: { "Authorization": "Bearer " + localStorage.getItem("authToken") },
       body: formData
