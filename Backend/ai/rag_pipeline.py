@@ -10,14 +10,15 @@ from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI  
 from db.save_in_database import save_sessions_in_mongo     
 from db.database import sessions 
-from langchain_community.chat_message_histories import RedisChatMessageHistory
+# from langchain_community.chat_message_histories import RedisChatMessageHistory
+from langchain_community.chat_message_histories.redis import RedisChatMessageHistory
 from config.redis_config import redis_client    
 from dotenv import load_dotenv
 load_dotenv()
 
 # from ai.prompts import system_prompts
 
- 
+redis_url = os.getenv("redis_url")
 #  Setting llm 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
@@ -47,7 +48,7 @@ agent = create_react_agent(
 async def rag_pipeline(userID: str, session_id: str, query: str , agents = agent, system_prompt=system_prompt):
     try:
         
-        history = RedisChatMessageHistory(redis_client=redis_client, session_id=session_id)
+        history = RedisChatMessageHistory(url=redis_url, session_id=session_id)
         
         past_messages = await history.aget_messages()  # List[BaseMessage]
         
